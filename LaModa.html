@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Storia della Moda | Un Viaggio nell'Eleganza</title>
+    <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap)" rel="stylesheet">
+    <link rel="stylesheet" href="[cdnjs.cloudflare.com](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
+    <style>
+        :root {
+            --gold: #c9a962;
+            --black: #0a0a0a;
+            --white: #fafafa;
+            --gray: #2a2a2a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Cursor personalizzato */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10,10,10,0.95);
+            padding: 15px 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80') center/cover;
+            opacity: 0.3;
+            animation: slowZoom 20s infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            padding: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.8s forwards;
+        }
+
+        .hero-title span {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.1s forwards;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 18px 50px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.4s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.4s forwards;
+        }
+
+        .hero-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .hero-btn:hover {
+            color: var(--black);
+        }
+
+        .hero-btn:hover::before {
+            left: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Section styling */
+        section {
+            padding: 120px 50px;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-tag {
+            font-size: 0.8rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 20px;
+        }
+
+        .section-line {
+            width: 60px;
+            height: 1px;
+            background: var(--gold);
+            margin: 0 auto;
+        }
+
+        .section-intro {
+            max-width: 800px;
+            margin: 30px auto 0;
+            font-weight: 300;
+            line-height: 1.9;
+            text-align: center;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* Storia Section */
+        .storia {
+            background: linear-gradient(180deg, var(--black) 0%, var(--gray) 100%);
+        }
+
+        .timeline {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px 40px;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.6s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            margin-left: 50%;
+            transform: translateX(50px);
+        }
+
+        .timeline-item:nth-child(even).visible {
+            transform: translateX(0);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 35px;
+            width: 15px;
+            height: 15px;
+            background: var(--gold);
+            border-radius: 50%;
+            border: 3px solid var(--black);
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -8px;
+            right: auto;
+        }
+
+        .timeline-content {
+            background: rgba(255,255,255,0.03);
+            padding: 30px;
+            border-radius: 5px;
+            max-width: 450px;
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--gold);
+            transform: scale(1.02);
+        }
+
+        .timeline-year {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .timeline-text {
+            font-weight: 300;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Pionieri Section */
+        .pionieri {
+            background: var(--gray);
+        }
+
+        .pioneers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .pioneer-card {
+            position: relative;
+            height: 550px;
+            overflow: hidden;
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .pioneer-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pioneer-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .pioneer-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .pioneer-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 40px 30px;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 60%, transparent);
+            transform: translateY(50%);
+            transition: transform 0.4s ease;
+        }
+
+        .pioneer-card:hover .pioneer-overlay {
+            transform: translateY(0);
+        }
+
+        .pioneer-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .pioneer-role {
+            color: var(--gold);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .pioneer-desc {
+            font-weight: 300;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        .pioneer-achievements {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(201, 169, 98, 0.3);
+        }
+
+        .pioneer-achievements span {
+            display: inline-block;
+            background: rgba(201, 169, 98, 0.2);
+            color: var(--gold);
+            padding: 5px 12px;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            margin: 3px;
+            border-radius: 3px;
+        }
+
+        /* Confronto Section */
+        .confronto {
+            background: linear-gradient(180deg, var(--gray) 0%, var(--black) 100%);
+        }
+
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .comparison-side {
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+
+        .comparison-side.visible {
+            opacity: 1;
+        }
+
+        .comparison-side.left {
+            transform: translateX(-100px);
+        }
+
+        .comparison-side.right {
+            transform: translateX(100px);
+        }
+
+        .comparison-side.visible.left,
+        .comparison-side.visible.right {
+            transform: translateX(0);
+        }
+
+        .comparison-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .comparison-era {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+        }
+
+        .comparison-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .comparison-img {
+            height: 250px;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .comparison-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .comparison-img:hover img {
+            transform: scale(1.1);
+        }
+
+        .comparison-features {
+            list-style: none;
+        }
+
+        .comparison-features li {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(201, 169, 98, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 300;
+        }
+
+        .comparison-features li i {
+            color: var(--gold);
+            width: 20px;
+        }
+
+        /* Tessuti Section */
+        .tessuti {
+            background: var(--black);
+        }
+
+        .fabrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .fabric-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            border-radius: 5px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .fabric-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-10px);
+        }
+
+        .fabric-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .fabric-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .fabric-desc {
+            font-weight: 300;
+            line-height: 1.7;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Brands Section */
+        .brands {
+            background: var(--gray);
+            padding-bottom: 150px;
+        }
+
+        .brands-slider {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .brands-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .brand-card {
+            min-width: 100%;
+            padding: 0 20px;
+        }
+
+        .brand-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .brand-info {
+            padding: 40px;
+        }
+
+        .brand-logo-placeholder {
+            width: 150px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            letter-spacing: 3px;
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .brand-year {
+            color: var(--gold);
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+        }
+
+        .brand-desc {
+            font-weight: 300;
+            line-height: 1.9;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .brand-highlights {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(201, 169, 98, 0.1);
+            border-left: 3px solid var(--gold);
+        }
+
+        .brand-highlights h4 {
+            color: var(--gold);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .brand-highlights ul {
+            list-style: none;
+            font-weight: 300;
+            font-size: 0.9rem;
+        }
+
+        .brand-highlights li {
+            padding: 5px 0;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .brand-highlights li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+        }
+
+        .brand-stats {
+            display: flex;
+            gap: 40px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .brand-image {
+            height: 600px;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .brand-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .slider-btn {
+            width: 60px;
+            height: 60px;
+            border: 1px solid var(--gold);
+            background: transparent;
+            color: var(--gold);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .slider-btn:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid var(--gold);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: var(--gold);
+        }
+
+        /* Decadi Section */
+        .decadi {
+            background: linear-gradient(180deg, var(--black) 0%, var(--gray) 100%);
+        }
+
+        .decades-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .decade-card {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .decade-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .decade-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .decade-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 30%, transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+        }
+
+        .decade-year {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .decade-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .decade-desc {
+            font-weight: 300;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        /* Gallery */
+        .gallery {
+            background: var(--gray);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 300px);
+            gap: 15px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item:nth-child(1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(201, 169, 98, 0);
+            transition: background 0.3s ease;
+        }
+
+        .gallery-item:hover::after {
+            background: rgba(201, 169, 98, 0.2);
+        }
+
+        /* Quote Section */
+        .quote-section {
+            background: var(--black);
+            padding: 100px 50px;
+            text-align: center;
+        }
+
+        .quote-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: var(--white);
+        }
+
+        .quote-author {
+            color: var(--gold);
+            font-size: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            padding: 80px 50px 30px;
+            border-top: 1px solid rgba(201, 169, 98, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .footer-desc {
+            font-weight: 300;
+            line-height: 1.8;
+            opacity: 0.7;
+        }
+
+        .footer-title {
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            color: var(--gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            font-weight: 300;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .comparison-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .brand-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .brand-image {
+                height: 400px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px 30px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            section {
+                padding: 80px 30px;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                width: 100%;
+                margin-left: 40px;
+                justify-content: flex-start;
+            }
+            
+            .timeline-item::after,
+            .timeline-item:nth-child(even)::after {
+                left: -28px;
+                right: auto;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto;
+            }
+            
+            .gallery-item:nth-child(1) {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .decades-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animazioni extra */
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(201, 169, 98, 0.5); }
+            to { text-shadow: 0 0 40px rgba(201, 169, 98, 0.8); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <span class="logo">MODA</span>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#storia">Storia</a></li>
+            <li><a href="#pionieri">Pionieri</a></li>
+            <li><a href="#decadi">Decadi</a></li>
+            <li><a href="#brands">Maison</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle">Un Viaggio attraverso i Secoli</p>
+            <h1 class="hero-title">La Storia della <span>Moda</span></h1>
+            <p class="hero-desc">Dall'eleganza delle corti reali alle passerelle contemporanee, scopri come l'arte del vestire ha plasmato la nostra cultura e identità attraverso secoli di innovazione, ribellione e bellezza.</p>
+            <a href="#storia" class="hero-btn">Esplora</a>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Storia Section -->
+    <section class="storia" id="storia">
+        <div class="section-header">
+            <p class="section-tag">Le Origini</p>
+            <h2 class="section-title">Come Nasce la Moda</h2>
+            <div class="section-line"></div>
+            <p class="section-intro">La moda non è semplicemente l'arte di vestirsi: è un linguaggio universale che racconta storie di potere, ribellione, identità e trasformazione sociale. Dalle prime civiltà ai nostri giorni, l'abbigliamento ha sempre riflesso i valori e le aspirazioni di ogni epoca.</p>
+        </div>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-year">XIV</span>
+                    <h3 class="timeline-title">Le Corti Borgognone</h3>
+                    <p class="timeline-text">La moda come la conosciamo nasce nelle corti della Borgogna, nell'attuale Belgio e Francia orientale. I duchi Filippo il Buono e Carlo il Temerario trasformano l'abbigliamento in strumento di potere politico. Nascono i primi "fashion victims": cortigiani disposti a rovinarsi pur di seguire le tendenze. Il concetto di stagionalità della moda emerge proprio qui, con cambi di guardaroba regolari per dimostrare ricchezza.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-year">XVI</span>
+                    <h3 class="timeline-title">Il Rinascimento Italiano</h3>
+                    <p class="timeline-text">L'Italia diventa il centro della moda europea. Firenze, Venezia e Milano producono i tessuti più pregiati: broccati, velluti, damaschi. Le famiglie Medici e Sforza commissionano abiti di straordinaria ricchezza. Nasce il concetto di "bella figura" italiano. I colori hanno significati precisi: il rosso per il potere, il nero per l'eleganza austera, l'oro per la divinità. Leonardo da Vinci stesso disegna costumi per le feste di corte.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-year">XVII</span>
+                    <h3 class="timeline-title">Versailles e Luigi XIV</h3>
+                    <p class="timeline-text">Il Re Sole trasforma la Francia nel centro mondiale della moda. Versailles diventa il palcoscenico dove nascono le tendenze che influenzeranno tutta l'Europa per secoli. Luigi XIV usa la moda come strumento di controllo politico: obbliga i nobili a spendere fortune in abiti, indebolendone il potere economico. Nascono le prime riviste di moda e i primi "fashion dolls" - bambole vestite all'ultima moda inviate nelle corti europee come cataloghi viventi.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-year">1858</span>
+                    <h3 class="timeline-title">Charles Frederick Worth e l'Haute Couture</h3>
+                    <p class="timeline-text">Un inglese a Parigi rivoluziona tutto. Charles Frederick Worth apre la prima vera maison de couture in Rue de la Paix e inventa il concetto di stilista: non più sarto che esegue ordini, ma artista creativo che firma le proprie creazioni e le presenta su modelle vive. Introduce le sfilate stagionali, l'etichetta con il nome del creatore e il sistema delle collezioni. Veste l'imperatrice Eugenia e tutte le corti d'Europa.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-year">1920</span>
+                    <h3 class="timeline-title">La Rivoluzione di Chanel</h3>
+                    <p class="timeline-text">Coco Chanel libera le donne dai corsetti e dalle gonne lunghe, introducendo comfort ed eleganza. Trasforma elementi del guardaroba maschile in icone femminili: il jersey, precedentemente usato solo per biancheria intima, diventa haute couture. Il tubino nero del 1926 viene definito "la Ford della moda" per la sua democratica universalità. Introduce anche i pantaloni per le donne, la bigiotteria di lusso e il concetto che l'eleganza è il rifiuto dell'eccesso.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-year">1947</span>
+                    <h3 class="timeline-title">Il New Look di Dior</h3>
+                    <p class="timeline-text">Il 12 febbraio 1947, Christian Dior presenta la collezione "Corolle", subito ribattezzata "New Look" dalla stampa. Dopo anni di razionamento bellico, riporta il lusso e la femminilità: vita strettissima, spalle arrotondate, gonne ampie fino a 25 metri di tessuto. La reazione è controversa - alcune donne protestano per strada - ma il successo è travolgente. Parigi riconquista lo scettro della moda mondiale sottratto da New York durante la guerra.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-year">1960s</span>
+                    <h3 class="timeline-title">La Rivoluzione Giovanile</h3>
+                    <p class="timeline-text">Per la prima volta nella storia, i giovani dettano le tendenze. Mary Quant inventa la minigonna a Londra, André Courrèges la presenta a Parigi. Nascono le prime top model: Twiggy con il suo look androgino ridefinisce la bellezza. La moda diventa strumento di ribellione: i Beatles, i Rolling Stones, la cultura Mod e Hippie sfidano le convenzioni. Carnaby Street a Londra diventa il centro del mondo fashion, sfidando il predominio parigino.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-year">1980s</span>
+                    <h3 class="timeline-title">L'Ascesa del Made in Italy</h3>
+                    <p class="timeline-text">Giorgio Armani, Gianni Versace, Valentino, Dolce & Gabbana: l'Italia sfida il dominio francese. Milano diventa capitale mondiale del prêt-à-porter di lusso. La moda italiana si distingue per artigianalità, sensualità e pragmatismo. Nasce il concetto di "fashion system" con le supermodel (Naomi, Cindy, Linda, Christy) che diventano più famose delle attrici. Il lusso diventa aspirazionale e globale.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-year">Oggi</span>
+                    <h3 class="timeline-title">L'Era Digitale e Sostenibile</h3>
+                    <p class="timeline-text">Social media, influencer marketing, sostenibilità e inclusività ridefiniscono la moda. Le sfilate diventano eventi globali in streaming. I confini tra haute couture e streetwear si dissolvono: collaborazioni tra maison di lusso e brand sportivi creano fenomeni come Yeezy e Off-White. La Gen Z chiede trasparenza etica e ambientale. Il second-hand e l'upcycling diventano cool. La moda genderless sfida le categorizzazioni tradizionali.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pionieri Section -->
+    <section class="pionieri" id="pionieri">
+        <div class="section-header">
+            <p class="section-tag">I Visionari</p>
+            <h2 class="section-title">Pionieri della Moda</h2>
+            <div class="section-line"></div>
+            <p class="section-intro">Dietro ogni rivoluzione stilistica c'è una mente visionaria che ha osato sfidare le convenzioni. Questi pionieri non hanno solo creato abiti: hanno ridefinito il concetto stesso di eleganza, identità e libertà.</p>
+        </div>
+        
+        <div class="pioneers-grid">
+            <div class="pioneer-card">
+                <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600&q=80" alt="Coco Chanel Style">
+                <div class="pioneer-overlay">
+                    <h3 class="pioneer-name">Coco Chanel</h3>
+                    <p class="pioneer-role">1883 - 1971 • Francia</p>
+                    <p class="pioneer-desc">Orfana cresciuta in convento, Gabrielle "Coco" Chanel rivoluzionò la moda femminile liberando le donne dai corsetti. Trasformò la povertà della sua infanzia in minimalismo elegante. "Il lusso deve essere confortevole, altrimenti non è lusso" - questa sua filosofia cambiò tutto.</p>
+                    <div class="pioneer-achievements">
+                        <span>Tubino Nero</span>
+                        <span>Chanel N°5</span>
+                        <span>Tailleur in Tweed</span>
+                        <span>Borsa 2.55</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pioneer-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Christian_Dior_1954.jpg" alt="Christian Dior Style">
+                <div class="pioneer-overlay">
+                    <h3 class="pioneer-name">Christian Dior</h3>
+                    <p class="pioneer-role">1905 - 1957 • Francia</p>
+                    <p class="pioneer-desc">Figlio di un industriale, Dior studiò scienze politiche prima di scoprire la sua vocazione. Il suo "New Look" del 1947 ridefinì la silhouette femminile post-bellica con un romanticismo audace. In soli 10 anni costruì un impero che ancora oggi domina il lusso mondiale.</p>
+                    <div class="pioneer-achievements">
+                        <span>New Look 1947</span>
+                        <span>Bar Jacket</span>
+                        <span>Miss Dior</span>
+                        <span>Lady Dior Bag</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pioneer-card">
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80" alt="Yves Saint Laurent Style">
+                <div class="pioneer-overlay">
+                    <h3 class="pioneer-name">Yves Saint Laurent</h3>
+                    <p class="pioneer-role">1936 - 2008 • Francia/Algeria</p>
+                    <p class="pioneer-desc">Prodigio della moda, divenne direttore creativo di Dior a soli 21 anni. Pioniere del prêt-à-porter di lusso, democratizzò l'haute couture senza sacrificarne l'eccellenza. Introdusse lo smoking femminile "Le Smoking" nel 1966, sfidando le convenzioni di genere.</p>
+                    <div class="pioneer-achievements">
+                        <span>Le Smoking</span>
+                        <span>Mondrian Dress</span>
+                        <span>Safari Jacket</span>
+                        <span>Prêt-à-Porter</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pioneer-card">
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&q=80" alt="Giorgio Armani Style">
+                <div class="pioneer-overlay">
+                    <h3 class="pioneer-name">Giorgio Armani</h3>
+                    <p class="pioneer-role">1934 • Italia</p>
+                    <p class="pioneer-desc">Ex studente di medicina, Armani reinventò il guardaroba maschile e femminile con linee fluide e destrutturate. La sua giacca senza fodera e spalline rigide rivoluzionò il power dressing degli anni '80. Vestì Richard Gere in "American Gigolo" e conquistò Hollywood.</p>
+                    <div class="pioneer-achievements">
+                        <span>Giacca Destrutturata</span>
+                        <span>Power Suit</span>
+                        <span>Greige</span>
+                        <span>Red Carpet</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pioneer-card">
+                <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=80" alt="Gianni Versace Style">
+                <div class="pioneer-overlay">
+                    <h3 class="pioneer-name">Gianni Versace</h3>
+                    <p class="pioneer-role">1946 - 1997 • Italia</p>
+                    <p class="pioneer-desc">Calabrese figlio di una sarta, Versace fuse arte, rock e sensualità in uno stile inconfondibile. Amico di rockstar e principesse, fu il primo a trasformare le sfilate in spettacoli mediatici e a creare il concetto di supermodel. Il suo assassinio nel 1997 sconvolse il mondo della moda.</p>
+                    <div class="pioneer-achievements">
+                        <span>Medusa Logo</span>
+                        <span>Safety Pin Dress</span>
+                        <span>Stampe Barocche</span>
+                        <span>Rock Couture</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pioneer-card">
+                <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&q=80" alt="Alexander McQueen Style">
+                <div class="pioneer-overlay">
+                    <h3 class="pioneer-name">Alexander McQueen</h3>
+                    <p class="pioneer-role">1969 - 2010 • Regno Unito</p>
+                    <p class="pioneer-desc">Figlio di un tassista londinese, McQueen iniziò come apprendista sarto in Savile Row. Le sue sfilate teatrali e provocatorie sfidavano ogni convenzione: modelle su passerelle allagate, robot che dipingevano abiti, ologrammi di Kate Moss. Genio tormentato, lasciò un'eredità artistica senza pari.</p>
+                    <div class="pioneer-achievements">
+                        <span>Bumster Pants</span>
+                        <span>Skull Scarf</span>
+                        <span>Theatrical Shows</span>
+                        <span>Armadillo Boots</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Decadi Section -->
+    <section class="decadi" id="decadi">
+        <div class="section-header">
+            <p class="section-tag">Attraverso il Tempo</p>
+            <h2 class="section-title">Le Decadi della Moda</h2>
+            <div class="section-line"></div>
+            <p class="section-intro">Ogni decennio ha portato con sé una rivoluzione stilistica, riflettendo i cambiamenti sociali, economici e culturali del suo tempo. Dalla liberazione degli anni '20 alla sostenibilità di oggi.</p>
+        </div>
+        
+        <div class="decades-grid">
+            <div class="decade-card">
+                <img src="https://www.keblog.it/wp-content/uploads/2016/04/fotografie-epoca-vintage-moda-anni-venti-11-700x870.jpg" alt="1920s Fashion">
+                <div class="decade-overlay">
+                    <span class="decade-year">'20</span>
+                    <h3 class="decade-title">I Ruggenti Anni Venti</h3>
+                    <p class="decade-desc">La "flapper" incarna la donna moderna: capelli corti, abiti al ginocchio, sigaretta e cocktail. Il charleston detta il ritmo, il jazz la colonna sonora. Chanel introduce il tubino nero. È l'era dell'emancipazione femminile e dell'art déco.</p>
+                </div>
+            </div>
+
+            <div class="decade-card">
+                <img src="https://images.unsplash.com/photo-1558171813-4c088753af8f?w=600&q=80" alt="1950s Fashion">
+                <div class="decade-overlay">
+                    <span class="decade-year">'50</span>
+                    <h3 class="decade-title">L'Eleganza Classica</h3>
+                    <p class="decade-desc">Il New Look di Dior domina il decennio: vita stretta, gonne ampie, guanti e perle. Grace Kelly e Audrey Hepburn diventano icone di stile. Nasce il concetto di "casual elegance" americano con jeans e t-shirt bianchi alla James Dean.</p>
+                </div>
+            </div>
+
+            <div class="decade-card">
+                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80" alt="1960s Fashion">
+                <div class="decade-overlay">
+                    <span class="decade-year">'60</span>
+                    <h3 class="decade-title">La Rivoluzione Pop</h3>
+                    <p class="decade-desc">Minigonne, colori psichedelici, stampe geometriche. Twiggy reinventa la bellezza con il suo look androgino. Londra sfida Parigi come capitale della moda. I Beatles influenzano lo stile maschile. Nascono gli hippies con il loro "flower power".</p>
+                </div>
+            </div>
+
+            <div class="decade-card">
+                <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600&q=80" alt="1970s Fashion">
+                <div class="decade-overlay">
+                    <span class="decade-year">'70</span>
+                    <h3 class="decade-title">Libertà e Glamour</h3>
+                    <p class="decade-desc">Pantaloni a zampa, piattaforme vertiginose, disco music. Studio 54 a New York detta le regole del glamour notturno. Punk a Londra con Vivienne Westwood. Il movimento femminista influenza la moda: jeans unisex e niente reggiseno.</p>
+                </div>
+            </div>
+
+            <div class="decade-card">
+                <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80" alt="1980s Fashion">
+                <div class="decade-overlay">
+                    <span class="decade-year">'80</span>
+                    <h3 class="decade-title">Eccesso e Power Dressing</h3>
+                    <p class="decade-desc">Spalline XXL, colori fluo, capelli cotonati. Dynasty e Dallas definiscono il glamour televisivo. Il power suit Armani conquista Wall Street. MTV trasforma la moda in videoclip: Madonna con pizzi e croci, Michael Jackson con la giacca rossa.</p>
+                </div>
+            </div>
+
+            <div class="decade-card">
+                <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=80" alt="1990s Fashion">
+                <div class="decade-overlay">
+                    <span class="decade-year">'90</span>
+                    <h3 class="decade-title">Minimalismo e Grunge</h3>
+                    <p class="decade-desc">Due estremi convivono: il minimalismo di Calvin Klein e il grunge di Kurt Cobain. Kate Moss incarna la "heroin chic". Le supermodel dominano le passerelle. Nasce lo streetwear con Tommy Hilfiger e hip-hop. Il nero diventa il nuovo nero.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tessuti Section -->
+    <section class="tessuti" id="tessuti">
+        <div class="section-header">
+            <p class="section-tag">Materiali</p>
+            <h2 class="section-title">L'Arte dei Tessuti</h2>
+            <div class="section-line"></div>
+            <p class="section-intro">Dietro ogni capo iconico c'è un tessuto prezioso, frutto di secoli di maestria artigianale. Dalla seta cinese al tweed scozzese, i materiali raccontano storie di commerci, innovazione e tradizione.</p>
+        </div>
+
+        <div class="fabrics-grid">
+            <div class="fabric-card">
+                <i class="fas fa-feather fabric-icon"></i>
+                <h3 class="fabric-name">Seta</h3>
+                <p class="fabric-desc">Scoperta in Cina 5000 anni fa, la seta era così preziosa che il suo commercio creò la Via della Seta. Ancora oggi, i bachi da seta producono questo filamento naturale che drappeggia come nessun altro tessuto al mondo. Comme des Garçons e Hermès ne fanno un uso magistrale.</p>
+            </div>
+
+            <div class="fabric-card">
+                <i class="fas fa-cloud fabric-icon"></i>
+                <h3 class="fabric-name">Cashmere</h3>
+                <p class="fabric-desc">Dalle capre dell'Himalaya, la fibra più pregiata al mondo. Servono 4 capre per un maglione. Brunello Cucinelli ha costruito un impero su questo tessuto, trasformando Solomeo in capitale mondiale del cashmere. Otto volte più caldo della lana, infinitamente più morbido.</p>
+            </div>
+
+            <div class="fabric-card">
+                <i class="fas fa-square fabric-icon"></i>
+                <h3 class="fabric-name">Tweed</h3>
+                <p class="fabric-desc">Nato nelle Highlands scozzesi per proteggere dal clima rigido, il tweed divenne sinonimo di eleganza grazie a Chanel, che lo trasformò in haute couture negli anni '20. Ogni filo racconta la storia dei tessitori delle isole britanniche.</p>
+            </div>
+
+            <div class="fabric-card">
+                <i class="fas fa-gem fabric-icon"></i>
+                <h3 class="fabric-name">Organza</h3>
+                <p class="fabric-desc">Tessuto trasparente e rigido, protagonista dell'haute couture per la sua capacità di creare volumi scultorei. Givenchy e Valentino lo utilizzano per creazioni da sogno. Può essere di seta o sintetico, ma mantiene sempre la sua eterea eleganza.</p>
+            </div>
+
+            <div class="fabric-card">
+                <i class="fas fa-water fabric-icon"></i>
+                <h3 class="fabric-name">Jersey</h3>
+                <p class="fabric-desc">Coco Chanel lo nobilitò, trasformando un tessuto da biancheria intima in haute couture. Elastico, confortevole e versatile, il jersey rivoluzionò la moda femminile permettendo libertà di movimento. Oggi è la base del luxury streetwear.</p>
+            </div>
+
+            <div class="fabric-card">
+                <i class="fas fa-crown fabric-icon"></i>
+                <h3 class="fabric-name">Velluto</h3>
+                <p class="fabric-desc">Tessuto dei re, con i suoi riflessi cangianti era simbolo di potere nelle corti rinascimentali. Venezia ne deteneva il monopolio produttivo. Oggi Tom Ford e Gucci lo usano per creazioni opulente che richiamano quel lusso antico.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Confronto Section -->
+    <section class="confronto" id="confronto">
+        <div class="section-header">
+            <p class="section-tag">Evoluzione</p>
+            <h2 class="section-title">Ieri vs Oggi</h2>
+            <div class="section-line"></div>
+        </div>
+        
+        <div class="comparison-container">
+            <div class="comparison-side left">
+                <div class="comparison-header">
+                    <h3 class="comparison-era">La Moda di Ieri</h3>
+                </div>
+                <div class="comparison-images">
+                    <div class="comparison-img">
+                        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&q=80" alt="Moda vintage">
+                    </div>
+                    <div class="comparison-img">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="Haute couture classica">
+                    </div>
+                </div>
+                <ul class="comparison-features">
+                    <li><i class="fas fa-gem"></i> Esclusività assoluta - Solo élite aristocratica</li>
+                    <li><i class="fas fa-ruler"></i> Silhouette rigide, corsetti e strutture interne</li>
+                    <li><i class="fas fa-clock"></i> Due collezioni all'anno: Primavera/Estate e Autunno/Inverno</li>
+                    <li><i class="fas fa-user-tie"></i> Dress code rigorosi per ogni occasione</li>
+                    <li><i class="fas fa-scissors"></i> Sartoria artigianale, abiti su misura obbligatori</li>
+                    <li><i class="fas fa-venus-mars"></i> Netta divisione tra guardaroba maschile e femminile</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Parigi come unico centro decisionale</li>
+                </ul>
+            </div>
+            
+            <div class="comparison-side right">
+                <div class="comparison-header">
+                    <h3 class="comparison-era">La Moda di Oggi</h3>
+                </div>
+                <div class="comparison-images">
+                    <div class="comparison-img">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&q=80" alt="Moda contemporanea">
+                    </div>
+                    <div class="comparison-img">
+                        <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=400&q=80" alt="Street style">
+                    </div>
+                </div>
+                <ul class="comparison-features">
+                    <li><i class="fas fa-globe"></i> Democratizzazione globale via fast fashion e e-commerce</li>
+                    <li><i class="fas fa-tshirt"></i> Comfort, athleisure e vestibilità rilassata</li>
+                    <li><i class="fas fa-sync"></i> Drop continui, micro-collezioni e see-now-buy-now</li>
+                    <li><i class="fas fa-palette"></i> Libertà espressiva totale, mix di stili</li>
+                    <li><i class="fas fa-leaf"></i> Focus su sostenibilità, second-hand e upcycling</li>
+                    <li><i class="fas fa-transgender-alt"></i> Moda genderless, inclusiva e body-positive</li>
+                    <li><i class="fas fa-hashtag"></i> Influencer e social media come trendsetter</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <div class="quote-section">
+        <div class="quote-content">
+            <p class="quote-text">"La moda non è qualcosa che esiste solo negli abiti. La moda è nel cielo, nella strada, la moda ha a che fare con le idee, il modo in cui viviamo, ciò che sta accadendo."</p>
+            <p class="quote-author">— Coco Chanel</p>
+        </div>
+    </div>
+
+    <!-- Brands Section -->
+    <section class="brands" id="brands">
+        <div class="section-header">
+            <p class="section-tag">Le Icone</p>
+            <h2 class="section-title">Le Grandi Maison</h2>
+            <div class="section-line"></div>
+            <p class="section-intro">Le maison di moda non sono semplici aziende: sono custodi di heritage centenari, laboratori di innovazione e templi del savoir-faire. Ogni marchio racconta una storia unica di visione, artigianalità e reinvenzione continua.</p>
+        </div>
+        
+        <div class="brands-slider">
+            <div class="brands-track">
+                <!-- Louis Vuitton -->
+                <div class="brand-card">
+                    <div class="brand-content">
+                        <div class="brand-info">
+                            <div class="brand-logo-placeholder">LV</div>
+                            <h3 class="brand-name">Louis Vuitton</h3>
+                            <p class="brand-year">Fondata nel 1854 • Parigi, Francia</p>
+                            <p class="brand-desc">Nata come casa di bauli per l'aristocrazia francese, Louis Vuitton ha trasformato l'arte del viaggio in simbolo di lusso. Il giovane Louis arrivò a Parigi a 13 anni, camminando per 400 km. Divenne apprendista malletier e inventò il baule a fondo piatto, rivoluzionario per l'epoca.</p>
+                            <div class="brand-highlights">
+                                <h4>Momenti Iconici</h4>
+                                <ul>
+                                    <li>1896: Creazione del Monogram LV per contrastare i falsari</li>
+                                    <li>1997: Marc Jacobs introduce il prêt-à-porter</li>
+                                    <li>2017: Collaborazione Supreme - fusione lusso e streetwear</li>
+                                    <li>2023: Pharrell Williams diventa direttore creativo menswear</li>
+                                </ul>
+                            </div>
+                            <div class="brand-stats">
+                                <div class="stat">
+                                    <span class="stat-number">170+</span>
+                                    <span class="stat-label">Anni di Storia</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number">#1</span>
+                                    <span class="stat-label">Brand di Lusso</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="brand-image">
+                            <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=800&q=80" alt="Louis Vuitton">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gucci -->
+                <div class="brand-card">
+                    <div class="brand-content">
+                        <div class="brand-info">
+                            <div class="brand-logo-placeholder">GUCCI</div>
+                            <h3 class="brand-name">Gucci</h3>
+                            <p class="brand-year">Fondata nel 1921 • Firenze, Italia</p>
+                            <p class="brand-desc">Guccio Gucci lavorò come facchino al Savoy di Londra, osservando il lusso dell'aristocrazia britannica. Tornato a Firenze, fondò una pelletteria ispirata a quell'eleganza. La doppia G e il nastro verde-rosso-verde divennero simboli riconosciuti ovunque nel mondo.</p>
+                            <div class="brand-highlights">
+                                <h4>Momenti Iconici</h4>
+                                <ul>
+                                    <li>1953: Il mocassino Horsebit entra al MoMA</li>
+                                    <li>1966: La "Flora" scarf creata per Grace Kelly</li>
+                                    <li>1994: Tom Ford salva il brand dal fallimento</li>
+                                    <li>2015: Alessandro Michele rivoluziona con l'estetica eclettica</li>
+                                </ul>
+                            </div>
+                            <div class="brand-stats">
+                                <div class="stat">
+                                    <span class="stat-number">100+</span>
+                                    <span class="stat-label">Anni di Storia</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number">€10B+</span>
+                                    <span class="stat-label">Fatturato</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="brand-image">
+                            <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80" alt="Gucci">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Prada -->
+                <div class="brand-card">
+                    <div class="brand-content">
+                        <div class="brand-info">
+                            <div class="brand-logo-placeholder">PRADA</div>
+                            <h3 class="brand-name">Prada</h3>
+                            <p class="brand-year">Fondata nel 1913 • Milano, Italia</p>
+                            <p class="brand-desc">Mario Prada aprì una pelletteria in Galleria Vittorio Emanuele II. Ma fu sua nipote Miuccia, con un dottorato in scienze politiche e un passato nel Partito Comunista, a trasformare Prada in fenomeno intellettuale. La borsa in nylon del 1984 sfidò ogni convenzione sul lusso.</p>
+                            <div class="brand-highlights">
+                                <h4>Momenti Iconici</h4>
+                                <ul>
+                                    <li>1984: La rivoluzionaria borsa in nylon nero</li>
+                                    <li>1993: Lancio di Miu Miu, linea più giovane</li>
+                                    <li>2012: Il concept "ugly chic" conquista la critica</li>
+                                    <li>2020: Co-direzione creativa con Raf Simons</li>
+                                </ul>
+                            </div>
+                            <div class="brand-stats">
+                                <div class="stat">
+                                    <span class="stat-number">110+</span>
+                                    <span class="stat-label">Anni di Storia</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number">Cult</span>
+                                    <span class="stat-label">Nylon Bag</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="brand-image">
+                            <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80" alt="Prada">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dolce & Gabbana -->
+                <div class="brand-card">
+                    <div class="brand-content">
+                        <div class="brand-info">
+                            <div class="brand-logo-placeholder">D&G</div>
+                            <h3 class="brand-name">Dolce & Gabbana</h3>
+                            <p class="brand-year">Fondata nel 1985 • Milano, Italia</p>
+                            <p class="brand-desc">Domenico Dolce, siciliano, e Stefano Gabbana, milanese, si incontrarono in un atelier e fondarono un brand che celebra la sensualità mediterranea. Corsetti, pizzi, leopardati e riferimenti alla Sicilia: un'estetica barocca che ha vestito Madonna, Beyoncé e le donne italiane di tutto il mondo.</p>
+                            <div class="brand-highlights">
+                                <h4>Momenti Iconici</h4>
+                                <ul>
+                                    <li>1987: Prima sfilata "Real Women"</li>
+                                    <li>1993: Madonna sceglie D&G per il Girlie Tour</li>
+                                    <li>2012: Collezione Alta Moda - couture italiana</li>
+                                    <li>Oggi: DNA siciliano celebrato globalmente</li>
+                                </ul>
+                            </div>
+                            <div class="brand-stats">
+                                <div class="stat">
+                                    <span class="stat-number">40</span>
+                                    <span class="stat-label">Anni di Storia</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number">Sicilia</span>
+                                    <span class="stat-label">DNA</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="brand-image">
+                            <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=800&q=80" alt="Dolce & Gabbana">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chanel -->
+                <div class="brand-card">
+                    <div class="brand-content">
+                        <div class="brand-info">
+                            <div class="brand-logo-placeholder">CC</div>
+                            <h3 class="brand-name">Chanel</h3>
+                            <p class="brand-year">Fondata nel 1910 • Parigi, Francia</p>
+                            <p class="brand-desc">Gabrielle "Coco" Chanel non creò solo abiti, ma una filosofia di vita. Orfana cresciuta in convento, trasformò la semplicità in lusso supremo. Ancora oggi Chanel rimane indipendente, di proprietà della famiglia Wertheimer, rifiutando le logiche dei gruppi del lusso.</p>
+                            <div class="brand-highlights">
+                                <h4>Momenti Iconici</h4>
+                                <ul>
+                                    <li>1921: Chanel N°5, primo profumo di stilista</li>
+                                    <li>1926: Il "petit robe noire" - tubino nero</li>
+                                    <li>1955: Borsa 2.55 con catena dorata</li>
+                                    <li>1983: Karl Lagerfeld reinventa la maison</li>
+                                </ul>
+                            </div>
+                            <div class="brand-stats">
+                                <div class="stat">
+                                    <span class="stat-number">115</span>
+                                    <span class="stat-label">Anni di Storia</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number">N°5</span>
+                                    <span class="stat-label">Iconico</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="brand-image">
+                            <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=80" alt="Chanel">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Versace -->
+                <div class="brand-card">
+                    <div class="brand-content">
+                        <div class="brand-info">
+                            <div class="brand-logo-placeholder">VERSACE</div>
+                            <h3 class="brand-name">Versace</h3>
+                            <p class="brand-year">Fondata nel 1978 • Milano, Italia</p>
+                            <p class="brand-desc">Gianni Versace, calabrese figlio di una sarta, fuse pop art, sensualità e opulenza in uno stile inconfondibile. Fu il primo a capire il potere delle celebrity e dei media. Dopo il suo tragico assassinio nel 1997, la sorella Donatella ha continuato la sua visione audace.</p>
+                            <div class="brand-highlights">
+                                <h4>Momenti Iconici</h4>
+                                <ul>
+                                    <li>1991: Le supermodel cantano "Freedom"</li>
+                                    <li>1994: Safety pin dress di Liz Hurley</li>
+                                    <li>2000: Jungle Dress di Jennifer Lopez ai Grammy</li>
+                                    <li>2018: Acquisizione da parte di Capri Holdings</li>
+                                </ul>
+                            </div>
+                            <div class="brand-stats">
+                                <div class="stat">
+                                    <span class="stat-number">45+</span>
+                                    <span class="stat-label">Anni di Storia</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number">Medusa</span>
+                                    <span class="stat-label">Simbolo</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="brand-image">
+                            <img src="https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&q=80" alt="Versace">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slider-controls">
+                <button class="slider-btn prev"><i class="fas fa-arrow-left"></i></button>
+                <button class="slider-btn next"><i class="fas fa-arrow-right"></i></button>
+            </div>
+            
+            <div class="slider-dots">
+                <span class="slider-dot active" data-index="0"></span>
+                <span class="slider-dot" data-index="1"></span>
+                <span class="slider-dot" data-index="2"></span>
+                <span class="slider-dot" data-index="3"></span>
+                <span class="slider-dot" data-index="4"></span>
+                <span class="slider-dot" data-index="5"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="section-header">
+            <p class="section-tag">Ispirazioni</p>
+            <h2 class="section-title">Gallery</h2>
+            <div class="section-line"></div>
+        </div>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Fashion Editorial">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80" alt="Fashion Model">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600&q=80" alt="Fashion Portrait">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80" alt="Fashion Shopping">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&q=80" alt="Fashion Street">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="logo">MODA</span>
+                <p class="footer-desc">Un viaggio attraverso secoli di eleganza, creatività e rivoluzione stilistica. La moda non è solo vestire: è esprimere chi siamo, chi vogliamo essere e come vediamo il mondo.</p>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-title">Esplora</h4>
+                <ul class="footer-links">
+                    <li><a href="#storia">Storia</a></li>
+                    <li><a href="#pionieri">Pionieri</a></li>
+                    <li><a href="#decadi">Decadi</a></li>
+                    <li><a href="#brands">Maison</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-title">Approfondimenti</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Haute Couture</a></li>
+                    <li><a href="#">Prêt-à-Porter</a></li>
+                    <li><a href="#">Sostenibilità</a></li>
+                    <li><a href="#">Tendenze</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 La Storia della Moda. Un progetto dedicato all'arte del vestire.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('a, button, .pioneer-card, .gallery-item, .decade-card').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+        });
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item, .pioneer-card, .comparison-side').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Brands Slider
+        const track = document.querySelector('.brands-track');
+        const cards = document.querySelectorAll('.brand-card');
+        const dots = document.querySelectorAll('.slider-dot');
+        const prevBtn = document.querySelector('.slider-btn.prev');
+        const nextBtn = document.querySelector('.slider-btn.next');
+        let currentIndex = 0;
+
+        function updateSlider() {
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+            updateSlider();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % cards.length;
+            updateSlider();
+        });
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                currentIndex = parseInt(dot.dataset.index);
+                updateSlider();
+            });
+        });
+
+        // Auto-slide
+        let autoSlide = setInterval(() => {
+            currentIndex = (currentIndex + 1) % cards.length;
+            updateSlider();
+        }, 6000);
+
+        // Pause auto-slide on hover
+        document.querySelector('.brands-slider').addEventListener('mouseenter', () => {
+            clearInterval(autoSlide);
+        });
+
+        document.querySelector('.brands-slider').addEventListener('mouseleave', () => {
+            autoSlide = setInterval(() => {
+                currentIndex = (currentIndex + 1) % cards.length;
+                updateSlider();
+            }, 6000);
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect on hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            if (scrolled < window.innerHeight) {
+                document.querySelector('.hero-bg').style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
